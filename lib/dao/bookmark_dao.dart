@@ -7,6 +7,9 @@ class BookmarkDao{
   DatabaseHelper databaseHelper = DatabaseHelper.databaseHelper;
 
   Future<int> insertData(int trackId,String name)async{
+
+    int searchi = await search(trackId);
+  if(searchi==0){
     var map = Map<String,dynamic>();
     map['trackId']=trackId;
     map['name']=name;
@@ -15,6 +18,18 @@ class BookmarkDao{
     int result = await db.insert(tableName, map);
     print(result);
     return result;
+  }
+  return 1;
+  }
+
+  Future<int> search(int trackId)async{
+    var bookmarkMapList = await getBookmarkMapList();
+    for(int i=0;i<bookmarkMapList.length;i++){
+        if(bookmarkMapList[i]['trackId']==trackId)
+        return 1;
+    }
+    return 0;
+
   }
 
   Future<List<Map<String,dynamic>>> getBookmarkMapList() async{
