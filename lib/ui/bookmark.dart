@@ -24,6 +24,11 @@ class _BookmarkListState extends State<BookmarkList> {
     });
   }
   @override
+  void dispose() {
+    super.dispose();
+    //bookmarkBloc.dispose();
+  }
+  @override
   Widget build(BuildContext context) {
         if(_source.keys.toList()[0]==ConnectivityResult.none){
         return Scaffold(
@@ -88,6 +93,9 @@ else{
                   padding: EdgeInsets.all(5.0),
                   child: ListTile(
             leading: Icon(Icons.library_music),
+            trailing: IconButton(icon: Icon(Icons.delete), onPressed: (){
+              bookmarkBloc.deleteBookmark(snapshot.data.bookmarkList[index].trackId);
+            }),
             title: Text(snapshot.data.bookmarkList[index].name,style:TextStyle(
   fontSize: 15.0,
   fontWeight: FontWeight.bold,

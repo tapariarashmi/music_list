@@ -25,4 +25,6 @@ class Repository{
 
   Future<BookmarkListModel> getBookmarkList() => bookmarkDao.getBookmarkList();
 
+  Future<int> deleteBookmark(int trackId) => bookmarkDao.deleteBookmark(trackId);
+
 }

@@ -1,10 +1,13 @@
 import 'package:flutter/material.dart';
+import 'package:music/bloc/lyrics_bloc.dart';
 import 'package:music/models/track_list_model.dart';
 import 'package:music/bloc/track_list_bloc.dart';
 import 'track_detail.dart';
 import 'package:music/bloc/connectivity.dart';
 import 'package:connectivity/connectivity.dart';
 import 'bookmark.dart';
+import 'package:music/bloc/track_bloc.dart';
+import 'package:music/bloc/bookmark_bloc.dart';
 
 class TrackList extends StatefulWidget {
   @override
@@ -23,6 +26,16 @@ class _TrackListState extends State<TrackList> {
       setState(() => _source = source);
     });
    // bookmarkBloc.fetchBookmarkList();
+  }
+  @override
+  void dispose() {
+    
+    super.dispose();
+    bloc.dispose();
+    trackBloc.dispose();
+    lyricsBloc.dispose();
+    _connectivity.disposeStream();
+    bookmarkBloc.dispose();
   }
 
   @override

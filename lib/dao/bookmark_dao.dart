@@ -25,6 +25,13 @@ class BookmarkDao{
   
   }
 
+  Future<int> deleteBookmark(int trackId)async{
+    Database db = await databaseHelper.database;
+    var result = await db.rawDelete('DELETE FROM $tableName WHERE trackId = $trackId');
+    print(result);
+    return result;
+  }
+
   Future<BookmarkListModel> getBookmarkList() async{
     print('list fetched');
     var bookmarkMapList = await getBookmarkMapList();

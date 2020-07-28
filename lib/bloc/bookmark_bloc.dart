@@ -20,6 +20,10 @@ class BookmarkBloc{
     //fetchBookmarkList();
   }
 
+  deleteBookmark(int trackId)async{
+    await _repository.deleteBookmark(trackId);
+    fetchBookmarkList();
+  }
 
   dispose(){
     _bookmarkListFetcher.close();

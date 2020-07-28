@@ -23,7 +23,7 @@ class DatabaseHelper{
         onCreate: (db,version)async{
           db.execute(
             ''' CREATE TABLE $tableName(
-              trackId INTEGER, name STRING
+              trackId INTEGER PRIMARY KEY ,name STRING
             )'''
           );
         },

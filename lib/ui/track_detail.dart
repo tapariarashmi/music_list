@@ -46,9 +46,8 @@ class _TrackDetailState extends State<TrackDetail> {
   }
   @override
   void dispose() {
-     
-    //TrackDetail.close();
     super.dispose();
+  
   }
 
   @override
@@ -66,13 +65,14 @@ class _TrackDetailState extends State<TrackDetail> {
         );
     }
     else{
-    bloc.fetchTrackDetail(widget.trackId);
+    trackBloc.fetchTrackDetail(widget.trackId);
     return Scaffold(
       appBar: AppBar(
         elevation: 5.0,
         iconTheme: IconThemeData(color: Colors.black),
         backgroundColor: Colors.white,
         title:Text('Track Details',style: TextStyle(color:Colors.black),),
+        leading: IconButton(icon: Icon(Icons.arrow_back), onPressed: (){Navigator.pop(context);}),
         actions: <Widget>[
          
           IconButton(
@@ -91,10 +91,11 @@ class _TrackDetailState extends State<TrackDetail> {
       body: ListView(
             children: [
       StreamBuilder(
-          stream: bloc.trackDetail,
+          stream: trackBloc.trackDetail,
           builder: (context,AsyncSnapshot<TrackModel> snapshot){
+            lyricsBloc.fetchLyrics(widget.trackId);
              if (snapshot.hasData) {
-          return trackDetailView(snapshot,widget.trackId);
+          return trackDetailView(snapshot);
             } else if (snapshot.hasError) {
           return Text(snapshot.error.toString());
             }
@@ -112,9 +113,9 @@ class _TrackDetailState extends State<TrackDetail> {
   }
 }
 
-Widget trackDetailView(AsyncSnapshot<TrackModel> snapshot,int trackId){
+Widget trackDetailView(AsyncSnapshot<TrackModel> snapshot){
   String explicit = snapshot.data.explicit==1? 'True':'False';
-  lyricsBloc.fetchLyrics(trackId);
+  
   return Column(
     mainAxisSize: MainAxisSize.min,
     

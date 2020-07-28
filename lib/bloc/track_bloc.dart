@@ -20,4 +20,4 @@ class TrackBloc{
   }
 
 }
-final bloc = TrackBloc();
+final trackBloc = TrackBloc();
